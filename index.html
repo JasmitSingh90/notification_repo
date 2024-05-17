@@ -10,9 +10,25 @@
         window.OneSignalDeferred = window.OneSignalDeferred || [];
         OneSignalDeferred.push(function(OneSignal) {
             OneSignal.init({
-            appId: "b144c7a1-a6d5-4a44-a506-c01a37116df5",
+            appId: "1f1b4da5-331e-43c4-8f46-28a96a0abe46",
             });
+            // OneSignal.login('UNIQUE_EXTERNAL_ID');
+            OneSignal.User.PushSubscription.addEventListener("change", pushSubscriptionChangeListener);
         });
+        function pushSubscriptionChangeListener(event) {
+            if (event.current.token) {
+                //this is a good place to call OneSignal.login and pass in your user ID
+                console.log(`The push subscription has received a token!`);
+                console.log(event.current.token);
+                console.log(`The push subscription token!`);
+                console.log(OneSignal.User.PushSubscription.token);
+                console.log(`The push subscription id!`);
+                console.log(OneSignal.User.PushSubscription.id);
+                console.log(`Is user optedIn`);
+                console.log(OneSignal.User.PushSubscription.optedIn);
+                OneSignal.login('UNIQUE_EXTERNAL_ID');
+            }
+        }
         </script>
     </head>
     <link rel="manifest" href="manifest.json"/>
